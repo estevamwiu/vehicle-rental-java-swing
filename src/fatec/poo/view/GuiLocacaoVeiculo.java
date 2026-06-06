@@ -9,6 +9,16 @@ public class GuiLocacaoVeiculo extends javax.swing.JFrame {
     
     public GuiLocacaoVeiculo() {
         initComponents();
+        txtNomeCliente.setEnabled(false);
+        rdbComum.setEnabled(false);
+        rdbPremium.setEnabled(false);
+        txtPlacaCarro.setEnabled(false);
+        txtTaxaLocacao.setEnabled(false);
+        txtValorKmRodado.setEnabled(false);
+        txtKmRodados.setEnabled(false);
+        txtValorLocacao.setEnabled(false);
+        btnAlugar.setEnabled(false);
+        btnLiberar.setEnabled(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -218,8 +228,8 @@ public class GuiLocacaoVeiculo extends javax.swing.JFrame {
 
     private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
 
-    int codigo = Integer.parseInt(txtCodigoLocacao.getText());
-    locacao = dao.consultar(codigo);
+        int codigo = Integer.parseInt(txtCodigoLocacao.getText());
+        locacao = dao.consultar(codigo);
 
     if (locacao != null) {
 
@@ -252,7 +262,7 @@ public class GuiLocacaoVeiculo extends javax.swing.JFrame {
 
     private void btnAlugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlugarActionPerformed
 
-    int codigo = Integer.parseInt(txtCodigoLocacao.getText());
+        int codigo = Integer.parseInt(txtCodigoLocacao.getText());
         String nome = txtNomeCliente.getText();
 
         locacao = new LocacaoVeiculo(codigo, nome);
@@ -277,8 +287,8 @@ public class GuiLocacaoVeiculo extends javax.swing.JFrame {
 
     private void btnLiberarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLiberarActionPerformed
 
-    double valorKm = Double.parseDouble(txtValorKmRodado.getText());
-    int km = Integer.parseInt(txtKmRodados.getText());
+        double valorKm = Double.parseDouble(txtValorKmRodado.getText());
+        int km = Integer.parseInt(txtKmRodados.getText());
 
         locacao.setKmRodados(km);
         double valorPagar = locacao.calcValorPagar(valorKm);
