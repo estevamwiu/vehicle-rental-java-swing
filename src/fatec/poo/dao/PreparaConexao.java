@@ -1,4 +1,4 @@
-package fatec.poo.control;
+package fatec.poo.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -42,8 +42,9 @@ public class PreparaConexao {
    public void fecharConexao(){        
 	try {
               connection.close();
+              connection = null;
               System.out.println("[Conexao Encerrada]");
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             System.out.println("Falha no Encerramento da Conexao");
             System.out.println(ex.toString() + ex.getMessage());    
         }

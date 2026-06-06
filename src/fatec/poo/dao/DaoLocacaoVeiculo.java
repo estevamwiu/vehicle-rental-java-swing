@@ -1,26 +1,24 @@
-package fatec.poo.control;
+package fatec.poo.dao;
 
-import fatec.poo.control.PreparaConexao;
+import fatec.poo.dao.PreparaConexao;
 import fatec.poo.model.LocacaoVeiculo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 public class DaoLocacaoVeiculo {
+
     private PreparaConexao pc;
     private Connection connection;
 
-    public DaoLocacaoVeiculo () {
-        pc = new PreparaConexao("", "");
-        pc.setDriver("net.ucanaccess.jdbc.UcanaccessDriver");
-        pc.setConnectionString("jdbc:ucanaccess://DB_POO.accdb");
+    public DaoLocacaoVeiculo(Connection connection) {
+        this.connection = connection;
     }
 
     public void inserir(LocacaoVeiculo objLocacao) {
         String sql = "INSERT INTO tblLocacao (Codigo, NomeCliente, TipoCliente, PlacaCarro, TaxaLocacao, KmRodados, ValorLocacao) "
                    + "VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
-            connection = pc.abrirConexao();
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, objLocacao.getCodigo());
             ps.setString(2, objLocacao.getNomeCliente());
@@ -33,15 +31,12 @@ public class DaoLocacaoVeiculo {
             System.out.println("[Registro inserido com sucesso]");
         } catch (Exception ex) {
             System.out.println("Erro ao inserir: " + ex.getMessage());
-        } finally {
-            pc.fecharConexao();
         }
     }
 
     public void atualizar(LocacaoVeiculo objLocacao) {
         String sql = "UPDATE tblLocacao SET KmRodados=?, ValorLocacao=? WHERE Codigo=?";
         try {
-            connection = pc.abrirConexao();
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, objLocacao.getKmRodados());
             ps.setDouble(2, objLocacao.getValorLocacao());
@@ -50,8 +45,6 @@ public class DaoLocacaoVeiculo {
             System.out.println("[Registro atualizado com sucesso]");
         } catch (Exception ex) {
             System.out.println("Erro ao atualizar: " + ex.getMessage());
-        } finally {
-            pc.fecharConexao();
         }
     }
 
@@ -59,7 +52,6 @@ public class DaoLocacaoVeiculo {
         String sql = "SELECT * FROM tblLocacao WHERE Codigo=?";
         LocacaoVeiculo objLocacao = null;
         try {
-            connection = pc.abrirConexao();
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, codigo);
             ResultSet rs = ps.executeQuery();
@@ -72,8 +64,6 @@ public class DaoLocacaoVeiculo {
             }
         } catch (Exception ex) {
             System.out.println("Erro ao consultar: " + ex.getMessage());
-        } finally {
-            pc.fecharConexao();
         }
         return objLocacao;
     }
